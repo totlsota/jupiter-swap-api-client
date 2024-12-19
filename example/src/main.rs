@@ -4,6 +4,7 @@ use jupiter_swap_api_client::{
     quote::QuoteRequest, swap::SwapRequest, transaction_config::TransactionConfig,
     JupiterSwapApiClient,
 };
+use reqwest::Client;
 use solana_client::nonblocking::rpc_client::RpcClient;
 use solana_sdk::{pubkey, transaction::VersionedTransaction};
 use solana_sdk::{pubkey::Pubkey, signature::NullSigner};
@@ -19,7 +20,7 @@ async fn main() {
     let api_base_url = env::var("API_BASE_URL").unwrap_or("https://quote-api.jup.ag/v6".into());
     println!("Using base url: {}", api_base_url);
 
-    let jupiter_swap_api_client = JupiterSwapApiClient::new(api_base_url);
+    let jupiter_swap_api_client = JupiterSwapApiClient::new(api_base_url, Client::new());
 
     let quote_request = QuoteRequest {
         amount: 1_000_000,
