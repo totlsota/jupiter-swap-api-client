@@ -44,7 +44,8 @@ impl JupiterSwapApiClient {
         let url = format!("{}/quote", self.base_path);
         let extra_args = quote_request.quote_args.clone();
         let internal_quote_request = InternalQuoteRequest::from(quote_request.clone());
-        let response = Client::new()
+        let response = self
+            .client
             .get(url)
             .query(&internal_quote_request)
             .query(&extra_args)
